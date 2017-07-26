@@ -414,7 +414,7 @@ for i in range(100):
 
     # Result on the test set
     results = []
-    for start, end in zip(range(0, len(teX), N_BATCH), range(N_BARCH, len(teX), N_BATCH)):
+    for start, end in zip(range(0, len(teX), N_BATCH), range(N_BATCH, len(teX), N_BATCH)):
         results.extend(np.argmax(teY[start:end], axis=1) ==
             sess.run(predict, feed_dict={X: teX[start:end], p_keep_conv: 1.0,
                                          p_keep_hidden: 1.0}))
