@@ -419,4 +419,4 @@ for i in range(100):
             sess.run(predict, feed_dict={X: teX[start:end], p_keep_conv: 1.0,
                                          p_keep_hidden: 1.0}))
 
-    print 'Epoch: %d, Test Accuracy: %f' % (i + 1, np.mean(results))i
+    print('Epoch: %d, Test Accuracy: %f' % (i + 1, np.mean(results))i)
