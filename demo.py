@@ -389,7 +389,7 @@ for mu, leaf_p in zip(mu_e, leaf_p_e):
                tf.tile(tf.expand_dims(leaf_p, 0), [N_BATCH, 1, 1])), 1)
     py_x_e.append(py_x_tree)
 
-py_x_e = tf.concat(py_x_e, 1)
+py_x_e = tf.concat(py_x_e, 0)
 py_x = tf.reduce_mean(py_x_e, 0)
 
 ##################################################
@@ -401,6 +401,7 @@ cost = tf.reduce_mean(-tf.multiply(tf.log(py_x), Y))
 
 # cost = tf.reduce_mean(tf.nn.cross_entropy_with_logits(py_x, Y))
 train_step = tf.train.RMSPropOptimizer(0.001, 0.9).minimize(cost)
+print(py_x.get_shape())
 predict = tf.argmax(py_x, 1)
 init_op = tf.global_variables_initializer()
 
