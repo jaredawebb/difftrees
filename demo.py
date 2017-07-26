@@ -397,7 +397,7 @@ py_x = tf.reduce_mean(py_x_e, 0)
 ##################################################
 
 # cross entropy loss
-cost = tf.reduce_mean(-tf.mul(tf.log(py_x), Y))
+cost = tf.reduce_mean(-tf.multiply(tf.log(py_x), Y))
 
 # cost = tf.reduce_mean(tf.nn.cross_entropy_with_logits(py_x, Y))
 train_step = tf.train.RMSPropOptimizer(0.001, 0.9).minimize(cost)
