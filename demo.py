@@ -372,7 +372,7 @@ for d in xrange(1, DEPTH + 1):
 
     mu_e_update = []
     for mu, flat_decision_p in zip(mu_e, flat_decision_p_e):
-        mu = tf.mul(mu, tf.gather(flat_decision_p,
+        mu = tf.multiply(mu, tf.gather(flat_decision_p,
                                   tf.add(batch_indices, batch_complement_indices)))
         mu_e_update.append(mu)
 
