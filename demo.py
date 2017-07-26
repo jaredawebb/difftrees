@@ -303,7 +303,7 @@ for decision_p in decision_p_e:
     decision_p_comp = tf.subtract(tf.ones_like(decision_p), decision_p)
 
     # Concatenate both d, 1-d
-    decision_p_pack = tf.pack([decision_p, decision_p_comp])
+    decision_p_pack = tf.concat([decision_p, decision_p_comp], 0)
 
     # Flatten/vectorize the decision probabilities for efficient indexing
     flat_decision_p = tf.reshape(decision_p_pack, [-1])
