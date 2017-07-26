@@ -385,11 +385,11 @@ py_x_e = []
 for mu, leaf_p in zip(mu_e, leaf_p_e):
     # average all the leaf p
     py_x_tree = tf.reduce_mean(
-        tf.mul(tf.tile(tf.expand_dims(mu, 2), [1, 1, N_LABEL]),
+        tf.multiply(tf.tile(tf.expand_dims(mu, 2), [1, 1, N_LABEL]),
                tf.tile(tf.expand_dims(leaf_p, 0), [N_BATCH, 1, 1])), 1)
     py_x_e.append(py_x_tree)
 
-py_x_e = tf.pack(py_x_e)
+py_x_e = py_x_e.pack()#tf.pack(py_x_e)
 py_x = tf.reduce_mean(py_x_e, 0)
 
 ##################################################
