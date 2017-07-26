@@ -389,7 +389,7 @@ for mu, leaf_p in zip(mu_e, leaf_p_e):
                tf.tile(tf.expand_dims(leaf_p, 0), [N_BATCH, 1, 1])), 1)
     py_x_e.append(py_x_tree)
 
-py_x_e = tf.TensorArray(py_x_e)
+py_x_e = tf.concat(py_x_e, 1)
 py_x = tf.reduce_mean(py_x_e, 0)
 
 ##################################################
