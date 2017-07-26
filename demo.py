@@ -402,21 +402,21 @@ cost = tf.reduce_mean(-tf.multiply(tf.log(py_x), Y))
 # cost = tf.reduce_mean(tf.nn.cross_entropy_with_logits(py_x, Y))
 train_step = tf.train.RMSPropOptimizer(0.001, 0.9).minimize(cost)
 predict = tf.argmax(py_x, 1)
+init_op = tf.global_variables_initializer()
 
-sess = tf.Session()
-sess.run(tf.initialize_all_variables())
+with tf.Session() as sess:
+    sess.run(init_op)
+    for i in range(100):
+        # One epoch
+        for start, end in zip(range(0, len(trX), N_BATCH), range(N_BATCH, len(trX), N_BATCH)):
+            sess.run(train_step, feed_dict={X: trX[start:end], Y: trY[start:end],
+                                            p_keep_conv: 0.8, p_keep_hidden: 0.5})
 
-for i in range(100):
-    # One epoch
-    for start, end in zip(range(0, len(trX), N_BATCH), range(N_BATCH, len(trX), N_BATCH)):
-        sess.run(train_step, feed_dict={X: trX[start:end], Y: trY[start:end],
-                                        p_keep_conv: 0.8, p_keep_hidden: 0.5})
+        # Result on the test set
+        results = []
+        for start, end in zip(range(0, len(teX), N_BATCH), range(N_BATCH, len(teX), N_BATCH)):
+            results.extend(np.argmax(teY[start:end], axis=1) ==
+                sess.run(predict, feed_dict={X: teX[start:end], p_keep_conv: 1.0,
+                                             p_keep_hidden: 1.0}))
 
-    # Result on the test set
-    results = []
-    for start, end in zip(range(0, len(teX), N_BATCH), range(N_BATCH, len(teX), N_BATCH)):
-        results.extend(np.argmax(teY[start:end], axis=1) ==
-            sess.run(predict, feed_dict={X: teX[start:end], p_keep_conv: 1.0,
-                                         p_keep_hidden: 1.0}))
-
-    print('Epoch: %d, Test Accuracy: %f' % (i + 1, np.mean(results)))
+        print('Epoch: %d, Test Accuracy: %f' % (i + 1, np.mean(results)))
