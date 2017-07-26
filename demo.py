@@ -300,7 +300,7 @@ flat_decision_p_e = []
 for decision_p in decision_p_e:
     # Compute the complement of d, which is 1 - d
     # where d is the sigmoid of fully connected output
-    decision_p_comp = tf.sub(tf.ones_like(decision_p), decision_p)
+    decision_p_comp = tf.subtract(tf.ones_like(decision_p), decision_p)
 
     # Concatenate both d, 1-d
     decision_p_pack = tf.pack([decision_p, decision_p_comp])
