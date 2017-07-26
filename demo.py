@@ -408,11 +408,13 @@ with tf.Session() as sess:
     sess.run(init_op)
     for i in range(100):
         # One epoch
+        print("Hello")
         for start, end in zip(range(0, len(trX), N_BATCH), range(N_BATCH, len(trX), N_BATCH)):
             sess.run(train_step, feed_dict={X: trX[start:end], Y: trY[start:end],
                                             p_keep_conv: 0.8, p_keep_hidden: 0.5})
 
         # Result on the test set
+        print("World")
         results = []
         for start, end in zip(range(0, len(teX), N_BATCH), range(N_BATCH, len(teX), N_BATCH)):
             results.extend(np.argmax(teY[start:end], axis=1) ==
